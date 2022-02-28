@@ -630,12 +630,36 @@ slow down causes too much jitter. To not have payout drop, the jitter
 buffers add latency to compensate for this. Probing for the RTT has been
 one of the phases that causes particular problems for this. To reduce
 the latency of QUIC, this work should coordinate with the QUIC working
-group have have the QUIC working group develop congestion control
+group to have the QUIC working group develop congestion control
 optimizations for low latency use of QUIC.
 
 ## Why not RTP
 
-TODO - add Mo's points: The problem of stored formats vs RTP payload
-formats. The what does RTP get you. The problem that RTP is an gateway
-drug to SDP and friends done't let friends try to debug SDP.
+RTP has several desirable properties that optimize the transport of media
+over networks, including media payload formats explicitly designed for
+network packets, transport feedback, packet loss resilience mechanisms,
+multiplexing, and strong security. It also has experimental congestion
+control (CC) algorithms explicitly designed for media delivery (RMCAT),
+without the issues described above in BBR.
 
+However, these properties have less value in the context of QuicR for
+the following reasons. QUIC adequately handles multiplexing, security,
+and transport feedback (except ack timestamps which require extensions
+proposed in drafts that have not yet been adopted by the QUIC WG).
+QUIC lacks CC and resilience mechanisms optimized for media, but direct
+reuse of unaltered RTP mechanisms is not practical, so these aspects
+must be redesigned in the context of QUIC anyway, although they can
+leverage learnings from RTP.
+
+Finally, and most significantly, RTP media payload formats that were
+optimized for network packets are less useful in QuicR since a 
+primary goal is to unify the streaming and real-time media delivery
+protocols. Streaming protocols use "container" formats like CMAF, 
+ISOBMFF, etc. Codecs always first define their core "elementary"
+bitstream format, then define their container format binding, and
+finally define their RTP payload format binding. These always differ.
+The differences are not significant enough to justify supporting both,
+so QuicR only supports the container format binding.
+
+In summary, the desirable aspects of RTP are absorbed into QUIC or
+QuicR layers rather than direct encapsulation of RTP.
