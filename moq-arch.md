@@ -156,15 +156,14 @@ conferencing and gaming.
   realtime delivery such as FEC and selective retransmission.
 
 * Quic's current congestion control algorithms need to be evaluated for
-  efficacy in low latency interactive real-time contexts specially when
-  it comes to mechanisms such as slow start and multiplicative
-  decrease. Based on the results of the evaluation work, QuicR can
+  efficacy in low latency interactive real-time contexts specially mechanisms such as slow start, multiplicative
+  decrease and queue buildup drainage. Based on the results of the evaluation work, QuicR can
   select the congestion control algorithm suitable for the application's
   class.
 
 * Published objects in QuicR have associated max-age that specifies the
   validity of such objects. max-age influences relay's drop decisions
-  and the used by the underlying Quic transport to cease retransmissions
+  and can be used by the underlying Quic transport to cease retransmissions
   associated with the named object.
 
 * Unlike streaming architectures where media contribution and media
