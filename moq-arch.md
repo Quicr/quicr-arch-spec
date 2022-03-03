@@ -18,18 +18,20 @@ natural latency the network causes.
 Interactive realtime applications, such as web conferencing systems,
 require ultra low latency (< 150ms). Such applications create their own
 application specific delivery network over which latency requirements
-can be met. Realtime transport protocols such as RTP provide the basic
+can be met. Realtime transport protocols such as RTP over UDP provide the basic
 elements needed for realtime communication, both contribution and
 distribution, while leaving aspects such as resiliency and congestion
 control to be provided by each application. On the other hand, media 
 streaming applications are much more tolerant to latency and require 
 highly scalable media distribution. Such applications leverage existing 
-CDN networks, used for optimizing web delivery, to distribute media 
-in common video streaming applications.
+CDN networks, used for optimizing web delivery, to distribute media.
+Streaming protocols such as HLS and MPEG-DASH operates on top of HTTP and
+gets transport-level resiliency and congestion control provided by TCP.    
 
-This document outlines a unified architecture for data delivery that
+This document outlines a unified architecture and protocol for data delivery that
 enables a wide range of realtime applications with different resiliency
-and latency needs. 
+and latency needs without compromising the sclability and cost effectiveness associated
+with content delivery networks. 
 
 ## QuicR 
 
