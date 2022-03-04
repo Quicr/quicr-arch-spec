@@ -668,5 +668,9 @@ finally define their RTP payload format binding. These always differ.
 The differences are not significant enough to justify supporting both,
 so QuicR only supports the container format binding.
 
+It is also interesting to observe that the use of RTP inadvertantly lead to media description and negotiation using SDP.
+Such complexity is justifiable when huge variation exists between clients' capabilities with very basic common lowest denominators. Today, and while variations still exist, streamlining media capabilities into reasonable capability sets that are declared by publishers and subscribed to by subscribers is very feasible and is how streaming applications do operate. Simpler forms can and should be used for media declarations. As a very wise guru once put it "RTP is an gateway drug to SDP and friends done't let friends try to debug SDP".      
+
 In summary, the desirable aspects of RTP are absorbed into QUIC or
 QuicR layers rather than direct encapsulation of RTP.
+
