@@ -47,7 +47,7 @@ relay/delivery network and scoped to an application.
 
 QuicrR provides services based on application requirements 
 (with the support of underlying transport, where necessary) 
-such as detecting available bandwidth, fragmentation and 
+such as estimation of available bandwidth, fragmentation and 
 reassembly, resiliency, congestion control and prioritization of
 data delivery based on data lifetime and importance of data. It is
 designed to be NAT and firewall traversal friendly and can be fronted
@@ -144,22 +144,23 @@ conferencing and gaming.
   terms of time duration, need to be quite small making it complicated
   for clients to request each object individually. QuicR uses a publish
   and subscription semantic along with a wildcard name to simplify and
-  speed object delivery.
+  speed object delivery for low latency applications. For latency-tolerant applications, larger granularity
+  of data, aka group of objects, can be individually requested and delivered without
+  instantiating state in the backend.
 
-* Certain realtime applications operating in ultra low latency mode
+* Some realtime applications operating in ultra low latency mode
   require objects delivered as and when they are available without
-  having to wait for previous objects that have not yet been delivered
-  due to network loss or out of order network delivery. QuicR supports
-  Quic datagrams based object delivery for this purposes. Note that
-  QuicR also allows for both Quic datagram and stream usages based on
-  the application's latency/quality requirements.
+  having to wait for previous objects delayed due to network loss
+  or out of order network delivery. QuicR supports
+  Quic datagrams based object delivery for this purpose. Note that
+  QuicR also uses Quic stream for delivery of objects that are latency-tolerant.
 
 * QuicR supports resiliency mechanisms that are more suitable for
   realtime delivery such as FEC and selective retransmission.
 
 * Quic's current congestion control algorithms need to be evaluated for
   efficacy in low latency interactive real-time contexts specially mechanisms such as slow start, multiplicative
-  decrease and queue buildup drainage. Based on the results of the evaluation work, QuicR can
+  decrease and queue buildup drainage during BBR probing. Based on the results of the evaluation work, QuicR can
   select the congestion control algorithm suitable for the application's
   class.
 
@@ -293,6 +294,11 @@ applications.
 A typical example would be a group of pictures/video frames or group of
 audio samples that represent synchronization point in the video
 conferencing example.
+
+Latency-tolerant applications can individually request each group of objects
+allowing delivery of objects without instantiation of persistent state within the delivery network.
+This is important for the preservation of the scalability of delivery networks at levels similar to what is currently available
+when streaming protocols such as HLS/HTTP are used.
 
 
 ## Named Objects
@@ -491,7 +497,7 @@ number of frames. QuicR easily supports that.
 
 ### RUSH over QuicR
 RUSH is an application-level protocol for ingesting live video. This
-section defined at a higher level on how the aspects from the RUSH protocol 
+section defines at a higher level how aspects of the RUSH protocol 
 could be realized with QuicR.
 
 RUSH's video frame is equivalent to QuicR video object that represents
@@ -536,7 +542,7 @@ corresponds to I-frame within tthat segment.
 
 ## QuicR Audio Objects
 
-Each small chuck of audio, such as 10 ms, can be put its own Object.
+Each small chuck of audio, such as 10 ms, can be its own QuicR object.
 
 Future sub 2 kbps audio codecs may take advantage of a rapidly
 updated model that are needed to decode the audio which could result in
@@ -627,7 +633,7 @@ The basic idea in BBR of speeding up to probe then slowing down to drain
 the queue build up caused during probe can work fine with real time
 applications. However the the current implementations in QUIC do not
 seem optimized for real time applications and have some time where the
-slow down causes too much jitter. To not have payout drop, the jitter
+slow down causes too much jitter. To not have playout drops, the jitter
 buffers add latency to compensate for this. Probing for the RTT has been
 one of the phases that causes particular problems for this. To reduce
 the latency of QUIC, this work should coordinate with the QUIC working
