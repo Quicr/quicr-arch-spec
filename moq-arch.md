@@ -2,7 +2,7 @@
 
 # Introduction
 
-Recently new usecases have emerged requiring higher scalability of
+Recently new use cases have emerged requiring higher scalability of
 delivery for interactive realtime applications and much lower latency
 for streaming applications and a combination thereof. On one side are
 usecases such as normal web conferences wanting to distribute out to
@@ -25,8 +25,8 @@ control to be provided by each application. On the other hand, media
 streaming applications are much more tolerant to latency and require 
 highly scalable media distribution. Such applications leverage existing 
 CDN networks, used for optimizing web delivery, to distribute media.
-Streaming protocols such as HLS and MPEG-DASH operate on top of HTTP and
-get transport-level resiliency and congestion control provided by TCP.    
+Streaming protocols such as HLS and MPEG-DASH operates on top of HTTP and
+gets transport-level resiliency and congestion control provided by TCP.    
 
 This document outlines, QuicR, a unified architecture and protocol for 
 data delivery that enables a wide range of realtime applications with 
@@ -39,13 +39,13 @@ The architecture defines and uses QuicR, a delivery
 protocol that is based on a publish/subscribe metaphor where client
 endpoints publish and subscribe to named objects that is sent to, and
 received from relays, that forms an overlay delivery network similar to
-what CDN provides today. The subscribe messages allow subscription to a 
+what CDN provides today. The subscribed messages allow subscription to a 
 name that includes a wildcard to match multiple published names, so a 
 single subscribe can allow a client to receive publishes for a wide class 
 of named objects. Objects are named such that it is unique for the
 relay/delivery network and scoped to an application. 
 
-QuicR provides services based on application requirements 
+QuicrR provides services based on application requirements 
 (with the support of underlying transport, where necessary) 
 such as estimation of available bandwidth, fragmentation and 
 reassembly, resiliency, congestion control and prioritization of
@@ -100,7 +100,7 @@ GitHub issue tracker at: ```
 https://github.com/fluffy/draft-jennings-moq-arch ```
 
 QuicR is pronounced something close to
-"quicker" but with more of a pirate "arrrr" at the end.
+“quicker” but with more of a pirate "arrrr" at the end.
 
 # Terminology
 
@@ -135,16 +135,16 @@ QuicR is pronounced something close to
 As its evident, QuicR and its architecture uses similar concepts and
 delivery mechanisms to those used by streaming standards such as HLS and
 MPEG-DASH. Specifically the use of a CDN-like delivery network, the use
-of named objects and the receiver-triggered media/data delivery. However
+of named objects and the receiver-triggered media/data delivery. However,
 there are fundamental characteristics that QuicR provides to enable
 ultra low latency delivery for interactive applications such as
 conferencing and gaming.
 
 * To support low latency the granularity of the delivered objects, in
-  terms of time duration, needs to be quite small making it complicated
+  terms of time duration, need to be quite small making it complicated
   for clients to request each object individually. QuicR uses a publish
   and subscription semantic along with a wildcard name to simplify and
-  speed up object delivery for low latency applications. For latency-tolerant applications, larger granularity of data, aka group of objects, can be 
+  speed object delivery for low latency applications. For latency-tolerant applications, larger granularity of data, aka group of objects, can be 
   individually requested and delivered without instantiating state in 
   the backend.
 
@@ -181,27 +181,27 @@ conferencing and gaming.
 
 * QuicR allows publishers to associate a priority with
   objects. Priorities can help the delivery network and the subscribers
-  to make decisions about resiliency, latency, drops etc. Priorities can be
-  used to set relative importance between different qualities for
+  to make decisions about resiliency, latency, drops etc. Priorities can
+  be used to set relative importance between different qualities for
   layered video encoding, for example.
 
 * QuicR is designed so that objects are encrypted end-to-end and will
   pass transparently through the delivery network. Any information
-  required by the delivery network, e.g priorities, will be included as
+  required by the delivery network, e.g., priorities, will be included as
   part of the metadata that is accessible to the delivery network for
   further processing as appropriate.
 
 # QuicR architecture
 
-A typical media delivery achitecture based on QuicR enables
+A typical media delivery architecture based on QuicR enables
 delivery tree allowing :
 
 - Publishing entities to publish named data
 - Subscribers to express interest in the named objects
 - Delivery tree made up of one or more Relays to allow the flow of the named objects.
 
-In the following subsections, two common QuicR delivery tree archiectures are 
-non-normatively discussed.
+In the following subsections, 2 common QuicR delivery tree architectures are 
+non-normatively discussed 
 
 ## QuicR Delivery Network Architecture with Origin as the only Relay Function.
 
@@ -226,7 +226,7 @@ streaming architecture rooted at the Origin Relay (for the domain
 tw.com). In this architecture, the media contribution is done by 
 publishing named objects corresponding to channel-22 to the ingest
 server at the Orgin Relay. Media consumption happens via 
-subscribes sent to the Origin Relay to the wildcarded name (ch22/*) 
+subscribes sent to the Origin Relay to the wildcard name (ch22/*) 
 for all media streams happening over the named channel-22. 
 The media published either by the source publisher or the 
 Relay (as Publisher) might be encoded into multiple qualities.
@@ -265,8 +265,8 @@ The example  has 4 participants with Alice
 being the publisher and rest being the subscribers. 
 Alice's is capable of publishing video streams at 2 qualities identified
 by their appropriate names. Bob subscribes to a low resolution
-video feed from alice, where as Carl/Derek carryout wildcard
-subscribes to all the qualties of video feed published by Alice.
+video feed from alice, whereas Carl/Derek carryout wildcard
+subscribes to all the qualities of video feed published by Alice.
 All the subscribes are sent to the Origin Relay and are 
 saved at the on-path Relays, this allowing for "short-circuited"
 delivery of published data at the relays. In the above example,
@@ -277,14 +277,14 @@ and Relay-B.
 
 # Names and Named Objects
 
-Names are basic elements within the QuicR architecture and they
+Names are basic elements with in the QuicR architecture and they
 uniquely identify objects. Named objects can be cached in relays in a
 way CDNs cache resources and thus can obtain similar benefits such
 caching mechanisms would offer.
 
-## Objects Groups {{#gro}}
+## Object Groups {{#gro}}
 
-Objects within QuicR belong to a group. A group (a.k.a group of
+Objects with in QuicR belong to a group. A group (a.k.a group of
 objects) represent an independent composition of set of objects, where
 there exists dependency relationship between the objects within the
 group. Groups, thus can be independently consumable by the subscriber
@@ -317,7 +317,7 @@ UDP port number mapped to into the domain. Example: sfu.webex.com:5004.
 
 Application component is scoped under a given Domain. This
 component identifies aspects specific to a given application instance
-hosted under a given domain (e.g.meeting identifier, which movie or
+hosted under a given domain (e.g., meeting identifier, which movie or
 channel, media type or media quality identifier).
 
 Inside each Application Component, there is a set of groups. Each
@@ -351,7 +351,7 @@ whole names ( wildcard support ).
 !--
 ~~~ascii-art
 ┌─────────────┬───────────────┬───────────────┬─────────────┐
-│ Domain      │ Appication    │ GroupID       │ ObjectID    │
+│ Domain      │ Application   │ GroupID       │ ObjectID    │
 │ Component   │ Component     │ Component     │ Component   │
 └─────────────┴───────────────┴───────────────┴─────────────┘
     48 bits        48 bits         16 bits       16 bits
@@ -360,11 +360,11 @@ Figure: QuicR Name
 !--
 
 
-This is done by hashing the origin to first 48 bits. Any relay that forms an
-connection to an new origin needs to ensure this does not collide with
+This is done by hashing the origin to first 48 bits. Any relay that forms a
+connection to a new origin needs to ensure this does not collide with
 an existing origin. The application component is mapped to the next 48
-bits and it is the responsibility of the application to ensure there are
-no collisions within a given origin. Finally the group ID and object ID
+bits. it is the responsibility of the application to ensure there are
+no collisions within a given origin. Lastly, the group ID and object ID
 each map to 16 bits.
 
 Design Note: It is possible to let each application define the
@@ -379,14 +379,14 @@ The hash names are key part of the design for allowing small objects
 without adding lots of overhead and for efficient implementation of
 Relays. 
 
-## Wildcarding with Names {{#wildcard}}
+## Wildcards with Names {{#wildcard}}
 
-QuicR allows subscribers to request for media based on wildcard'ed
-names. Wildcarding enables subscribes to be made as aggregates instead
-of at the object level granularity. Wildcard names are formed by 
+QuicR allows subscribers to request for media based on wildcard subscriptions.
+Wildcards enable subscriptions to be made as aggregates instead
+of at the individual object granularity. Wildcard names are formed by 
 skipping the right most segments of names.
  
-For example, in a web conferencing use case, the client may subscribe
+For example, in an web conferencing use case, the client may subscribe
 to just the origin and meetingId to get all the media for a particular
 conference as indicated by the example below. The example matches all
 the named objects published as part of meeting123.
@@ -400,7 +400,7 @@ A. Deliver any new objects it receives that matches the name
 B. Deliver any new objects it receives and in addition send any previous
 objects it has received that are in the same group that matches the name.
 
-C. Wait until an object that has an objectID that matches the name is
+C. Wait until an object that has a objectID that matches the name is
 received then start sending any objects that match the name.
 
 
@@ -408,7 +408,7 @@ received then start sending any objects that match the name.
 
 Once a named object is created, the content inside the named object can
 never be changed. Objects have an expiry time after which they should be
-discarded by caches. Objects have a priority that the relays and
+discarded by caches. Objects have an priority that the relays and
 clients can use to sequence the sending order. The data inside
 an object is end-to-end encrypted whose keys are not available to
 Relay(s).
@@ -477,7 +477,7 @@ receive a given encoding of the video by subscribing just to the application
 component of the Name with a wildcard for group and object IDs. 
 
 This also allows a subscription to get all the frames in the current group if
-it joins later, or wait until the next group before starting to get data, based on the subscription options. Changing to a different bitrate or
+it joins later, or waits until the next group before starting to get data, based on the subscription options. Changing to a different bitrate or
 resolution would use a new subscription to the appropriate Name.
 
 The QUIC transport that QuicR is running on provides the congestion
@@ -485,7 +485,7 @@ control but the application can see what objects are received and
 determine if it should change it's subscription to a different bitrate
 application component. 
 
-Todays video is often encoded with I-frames at a fixed interval but this
+Today's video is often encoded with I-frames at a fixed internal but this
 can result in pulsing video quality. Future system may want to insert I-frames at each change of scene resulting in groups with a variable
 number of frames. QuicR easily supports that. 
 
@@ -498,7 +498,7 @@ could be realized with QuicR.
 RUSH's video frame is equivalent to QuicR video object that represents
 an instance of encoder output. For video ingestion, the RUSH publisher 
 can assign the same groupID for all the frames generated between the 
-I-Frame boundaries and the RUSH's frameID can be directly mapped to QuicR's object ID. RUSH multistream mode can be enabled  by publishing each frame  over QUIC Stream indicated via QuicR API, since QuicR supports both
+I-Frame boundaries and the RUSH's frameID can be directly mapped to QuicR's object ID. RUSH multistream mode can be enabled by publishing each frame over QUIC Stream indicated via QuicR API, since QuicR supports both
 the QUIC Datagram and QUIC Stream modes of transport.
 
 The identifiers for the track and session forms the application 
@@ -520,9 +520,9 @@ Warp is a segmented live video transport protocol. Warp maps
 live media to QUIC streams based on the underlying media encoding. 
 
 Conceptually, each Warp video media segment maps to QuicR groupID 
-and frames within segment to QuicR objectID. Warp video media segments 
+and frames within the segment to QuicR objectID. Warp video media segments 
 are made up of I-Frames and zero or more related frames, which
-correspon to QuicR group of objects. QuicR named objects correspond 
+map to QuicR group of objects. QuicR named objects correspond 
 to these frames mapped to these segments and are published individually. 
 For a given channel and video quality, a segment and its frames can 
 be mapped to QuicR name as below:
@@ -546,7 +546,7 @@ needed to decode some audio are in the same group.
 ## QuicR Game Moves Objects
 
 Some games send out a base set of state information then incremental
-deltas to it. Each time a new base set is sent, a new group can be
+deltas to this. Each time a new base set is sent, a new group can be
 formed and each increment change as an Object in the group. When new
 players join, they can subscribe to sync up to the latest state by 
 subscribing to the current group and the incremental changes that 
@@ -556,7 +556,7 @@ follow.
 
 Chat applications and messaging system can form a manifest representing
 the roster of the people in a given channel or talk room. The manifest
-can provide information on the application component of the Quicr Name for user that are contributing messages. A subscription to each application such component enables reception of each new message. Each message would be a single object. Typically QuicR would be used to get the recent messages and then a more traditional HTTP CDN approach could be used to retrieve copies of
+can provide information on the application component of the QuicR Name for user that are contributing messages. A subscription to each application such component enables reception of each new message. Each message would be a single object. Typically QuicR would be used to get the recent messages and then a more traditional HTTP CDN approach could be used to retrieve copies of
 all the older objects.
 
 
@@ -564,7 +564,7 @@ all the older objects.
 
 The links between Relay and other Relays or Clients can be encrypted,
 however, this does not protect the content from Relays. To mitigate 
-this all the objects need to be end-to-end encrypted with a 
+this all the objects needs to be end-to-end encrypted with a 
 keying mechanism outside the scope of this protocol. For may 
 applications, simply getting the keys over HTTPS for a particular 
 object/group from the origin server will be adequate. For other 
@@ -574,10 +574,10 @@ used in HLS and DASH for DRM protected content.
 
 Relays reachable on the Internet are assumed to have a burstiness
 relationship with the Origin and the protocol provides a way to verify
-that any data moved is on behalf of a given Origin. 
+that any data moved is on behalf of a give Origin. 
 
 Relays in a local network may choose to process content for any Origin
-but since only local users can access them, there is a way to manage
+but since only local users can access them, their is a way to mange
 which applications use them.
 
 Subscriptions need to be refreshed at least every 5 seconds to ensure
@@ -595,7 +595,7 @@ is that the relays are *not* stateless and keep the subscription
 information and this is what allows for low latency and high throughput
 on the relays.
 
-In todays CDN, the CDN nodes end up faking the credentials of the origin server and this limits how and where they can be deployed. A design with explicitly designed relays that do not need to do this, while still assuming an end to end encrypted model so the relays did not have access to the content makes for a better design. 
+In today's CDN, the CDN nodes end up faking the credentials of the origin server and this limits how and where they can be a deployed. A design with explicitly designed relays that do not need to do this, while still assuming an end-to-end encrypted model so the relays did not have access to the content makes for a better design. 
 
 It would be possible to start with something that looked like HTTP as
 the protocol between the relays with special conventions for wildcards
@@ -619,10 +619,10 @@ may have to be realtime.
 
 The basic idea in BBR of speeding up to probe then slowing down to drain
 the queue build up caused during probe can work fine with real time
-applications. However the current implementations in QUIC do not
-seem optimized for real time applications and have some times where the
-slow down causes too much jitter. To not have playout drops, the jitter
-buffers adds latency to compensate for this. Probing for the RTT has been
+applications. However, the current implementations in QUIC do not
+appear optimized for real-time applications, resulting in higher jitter.
+In order to avoid play-out drops, the jitter
+buffers add latency to compensate for this. Probing for the RTT has been
 one of the phases that causes particular problems for this. To reduce
 the latency of QUIC, this work should coordinate with the QUIC working
 group to have the QUIC working group develop congestion control
