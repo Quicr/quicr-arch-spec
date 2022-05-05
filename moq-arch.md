@@ -400,7 +400,7 @@ A. Deliver any new objects it receives that matches the name
 B. Deliver any new objects it receives and in addition send any previous
 objects it has received that are in the same group that matches the name.
 
-C. Wait until an object that has a objectID that matches the name is
+C. Wait until an object that has an objectID that matches the name is
 received then start sending any objects that match the name.
 
 
