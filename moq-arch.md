@@ -408,7 +408,7 @@ received then start sending any objects that match the name.
 
 Once a named object is created, the content inside the named object can
 never be changed. Objects have an expiry time after which they should be
-discarded by caches. Objects have an priority that the relays and
+discarded by caches. Objects have a priority that the relays and
 clients can use to sequence the sending order. The data inside
 an object is end-to-end encrypted whose keys are not available to
 Relay(s).
@@ -564,7 +564,7 @@ all the older objects.
 
 The links between Relay and other Relays or Clients can be encrypted,
 however, this does not protect the content from Relays. To mitigate 
-this all the objects needs to be end-to-end encrypted with a 
+this, all the objects need to be end-to-end encrypted with a 
 keying mechanism outside the scope of this protocol. For may 
 applications, simply getting the keys over HTTPS for a particular 
 object/group from the origin server will be adequate. For other 
@@ -595,7 +595,7 @@ is that the relays are *not* stateless and keep the subscription
 information and this is what allows for low latency and high throughput
 on the relays.
 
-In today's CDN, the CDN nodes end up faking the credentials of the origin server and this limits how and where they can be a deployed. A design with explicitly designed relays that do not need to do this, while still assuming an end-to-end encrypted model so the relays did not have access to the content makes for a better design. 
+In today's CDN, the CDN nodes end up faking the credentials of the origin server and this limits how and where they can be deployed. A design with explicitly designed relays that do not need to do this, while still assuming an end-to-end encrypted model so the relays did not have access to the content makes for a better design. 
 
 It would be possible to start with something that looked like HTTP as
 the protocol between the relays with special conventions for wildcards
