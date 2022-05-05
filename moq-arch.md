@@ -200,7 +200,7 @@ delivery tree allowing :
 - Subscribers to express interest in the named objects
 - Delivery tree made up of one or more Relays to allow the flow of the named objects.
 
-In the following subsections, 2 common QuicR delivery tree architectures are 
+In the following subsections, two common QuicR delivery tree architectures are 
 non-normatively discussed 
 
 ## QuicR Delivery Network Architecture with Origin as the only Relay Function.
@@ -277,14 +277,14 @@ and Relay-B.
 
 # Names and Named Objects
 
-Names are basic elements with in the QuicR architecture and they
+Names are basic elements within the QuicR architecture and they
 uniquely identify objects. Named objects can be cached in relays in a
 way CDNs cache resources and thus can obtain similar benefits such
 caching mechanisms would offer.
 
 ## Object Groups {{#gro}}
 
-Objects with in QuicR belong to a group. A group (a.k.a group of
+Objects within QuicR belong to a group. A group (a.k.a group of
 objects) represent an independent composition of set of objects, where
 there exists dependency relationship between the objects within the
 group. Groups, thus can be independently consumable by the subscriber
@@ -485,7 +485,7 @@ control but the application can see what objects are received and
 determine if it should change it's subscription to a different bitrate
 application component. 
 
-Today's video is often encoded with I-frames at a fixed internal but this
+Today's video is often encoded with I-frames at a fixed interval but this
 can result in pulsing video quality. Future system may want to insert I-frames at each change of scene resulting in groups with a variable
 number of frames. QuicR easily supports that. 
 
@@ -546,7 +546,7 @@ needed to decode some audio are in the same group.
 ## QuicR Game Moves Objects
 
 Some games send out a base set of state information then incremental
-deltas to this. Each time a new base set is sent, a new group can be
+deltas to it. Each time a new base set is sent, a new group can be
 formed and each increment change as an Object in the group. When new
 players join, they can subscribe to sync up to the latest state by 
 subscribing to the current group and the incremental changes that 
@@ -574,10 +574,10 @@ used in HLS and DASH for DRM protected content.
 
 Relays reachable on the Internet are assumed to have a burstiness
 relationship with the Origin and the protocol provides a way to verify
-that any data moved is on behalf of a give Origin. 
+that any data moved is on behalf of a given Origin. 
 
 Relays in a local network may choose to process content for any Origin
-but since only local users can access them, their is a way to mange
+but since only local users can access them, there is a way to manage
 which applications use them.
 
 Subscriptions need to be refreshed at least every 5 seconds to ensure
