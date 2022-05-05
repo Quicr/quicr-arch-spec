@@ -97,7 +97,7 @@ systems such as messaging, gaming, and IoT.
 
 All significant discussion of development of this protocol is in the
 GitHub issue tracker at: ```
-https://github.com/fluffy/draft-jennings-moq-arch ```
+https://github.com/Quicr/quicr-arch-spec ```
 
 QuicR is pronounced something close to
 "quicker" but with more of a pirate "arrrr" at the end.
