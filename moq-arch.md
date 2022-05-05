@@ -231,6 +231,9 @@ for all media streams happening over the named channel-22.
 The media published either by the source publisher or the 
 Relay (as Publisher) might be encoded into multiple qualities.
 
+Note that "3" and "1" in the above notation refer to the Group ID and Object ID Components
+defined in {{named-objects}}.
+
 
 ## QuicR Delivery Network Architecture 
 
