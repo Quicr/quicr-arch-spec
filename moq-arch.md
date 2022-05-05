@@ -100,7 +100,7 @@ GitHub issue tracker at: ```
 https://github.com/fluffy/draft-jennings-moq-arch ```
 
 QuicR is pronounced something close to
-“quicker” but with more of a pirate "arrrr" at the end.
+"quicker" but with more of a pirate "arrrr" at the end.
 
 # Terminology
 
