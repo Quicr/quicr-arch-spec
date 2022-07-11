@@ -7,11 +7,11 @@ delivery for interactive realtime applications and much lower latency
 for streaming applications and a combination thereof. On one side are
 use cases such as normal web conferences wanting to distribute out to
 millions of viewers and allow viewers to instantly move to
-being a presenter. On the other side are usescases such as streaming a
+being a presenter. On the other side are uses cases such as streaming a
 soccer game to millions of people including people in the stadium
 watching the game live. Viewers watching an e-sports event want to be
 able to comment with minimal latency to ensure the interactivity aspects
-between what different viewers are seeing is preserved. All of these usescases 
+between what different viewers are seeing is preserved. All of these uses cases 
 push towards latencies that are in the order of 100ms over the 
 natural latency the network causes.
 
